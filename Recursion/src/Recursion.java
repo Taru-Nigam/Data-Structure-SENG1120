@@ -1,6 +1,6 @@
 /**
  * This class implements various recursive methods.
- * 
+ *
  * @author Kyle Robert Harrison
  * @version 1.0, 02 Apr 2025
  */
@@ -11,7 +11,10 @@ public class Recursion {
      * @return the sum of the squares of the first n natural numbers.
      */
     public int sumSquares(int n) {
-        return 0;
+        if (n == 0) {
+            return 0;
+        }
+        return n * n + sumSquares(n - 1);
     }
 
     /**
@@ -21,13 +24,16 @@ public class Recursion {
      * @return the greatest common divisor of x and y.
      */
     public int gcd(int x, int y) {
-        return 0;
+        if (y == 0) {
+            return x;
+        }
+        return gcd(y, x % y);
     }
 
     /**
-     * Determine if the given character is a vowel, regardless of case. 
+     * Determine if the given character is a vowel, regardless of case.
      * Note: y is not considered a vowel.
-     * 
+     *
      * @param c the character to check.
      * @return true if the character is a vowel, false otherwise.
      */
@@ -53,7 +59,11 @@ public class Recursion {
      * @return the number of vowels in the string.
      */
     public int countVowels(String s, int pos) {
-        return 0;
+        if (pos == s.length()) {
+            return 0;
+        }
+        int count = isVowel(s.charAt(pos)) ? 1 : 0;
+        return count + countVowels(s, pos + 1);
     }
 
     /**
@@ -63,11 +73,14 @@ public class Recursion {
      * @return the sum of the elements in the array.
      */
     public int sumArray(int[] arr, int pos) {
-        return 0;
+        if (pos == arr.length) {
+            return 0;
+        }
+        return arr[pos] + sumArray(arr, pos + 1);
     }
 
     /**
-     * Determine if the given string is a palindrome. 
+     * Determine if the given string is a palindrome.
      * This is considered an extra task, and is more challenging than the others.
      * @param s the string to check.
      * @param left the left index.
@@ -75,6 +88,12 @@ public class Recursion {
      * @return true if the string is a palindrome, false otherwise.
      */
     public boolean isPalindrome(String s, int left, int right) {
-        return false;
+        if (left >= right) {
+            return true;
+        }
+        if (s.charAt(left) != s.charAt(right)) {
+            return false;
+        }
+        return isPalindrome(s, left + 1, right - 1);
     }
 }
