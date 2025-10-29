@@ -11,50 +11,82 @@
  */
 public class BasicHashTable<K extends Comparable<K>,V> implements HashTableADT<K,V>{
 
+    private KeyValueEntry<K, V>[] table;
+    private int capacity;
+    private int size;
+
     public BasicHashTable(int capacity) {
-        throw new UnsupportedOperationException("Unimplemented constructor 'BasicHashTable'");
+        this.capacity = capacity;
+        this.table = new KeyValueEntry[capacity];
+        this.size = size();
     }
 
     @Override
     public boolean insert(K key, V value) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'insert'");
+        int index = Math.abs(key.hashcode()) % capacity;
+        if (table[index] == null){
+            table[index] == new KeyValueEntry<>(key, value);
+            size++;
+            return true;
+        }
+        return false;
     }
 
     @Override
     public V remove(K key) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'remove'");
+        int index = Math.abs(key.hashcode()) % capacity;
+        if (table[index] !=null && table[index].getkey().equals(key)){
+            V value = table[index].getValue();
+            table[index] = null;
+            size--;
+            return value;
+        }
+        return null;
     }
 
     @Override
     public V get(K key) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'get'");
+        int index = Math.abs(key.hashcode()) % capacity;
+        if (table[index] !=null && null table[index].getkey().equals(key)){
+            return table[index].getValue();
+        }
+        return null;
     }
 
     @Override
     public boolean contains(K key) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'contains'");
+        int index = Math.abs(key.hashcode()) % capacity;
     }
 
     @Override
     public boolean isEmpty() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isEmpty'");
+        return size==0;
     }
 
     @Override
     public int size() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'size'");
+        return size;
     }
 
     @Override
     public void clear() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'clear'");
+        for (int i = 0; i<capacity;i++){
+            table[i]=null;
+        }
+        size=0;
     }
-    
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < capacity; i++) {
+            sb.append(i).append(": ");
+            if (table[i] != null) {
+                sb.append(table[i].toString());
+            } else {
+                sb.append("(empty)");
+            }
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
 }
